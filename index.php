@@ -38,6 +38,9 @@ $f3->route('GET /@animal', function($f3, $params) {
         case 'fish':
             echo 'Glub';
             break;
+        case 'fox':
+            echo 'Rinadingding';
+            break;
         default:
             echo 'hello??';
     }
