@@ -18,5 +18,31 @@ $f3->route('GET /', function() {
     echo '<a href="order">Order a Pet</a>';
 });
 
+$f3->route('GET /@animal', function($f3, $params) {
+
+    $animal = $params['animal'];
+
+    switch($animal) {
+        case 'chicken':
+            echo 'Cluck!';
+            break;
+        case 'dog':
+            echo 'Woof!';
+            break;
+        case 'cat':
+            echo 'Meow!';
+            break;
+        case 'elephant':
+            echo 'Toot!';
+            break;
+        case 'fish':
+            echo 'Glub';
+            break;
+        default:
+            echo 'hello??';
+    }
+
+});
+
 //Run Fat-free
 $f3->run();
