@@ -9,7 +9,10 @@ error_reporting(E_ALL);
 //Require vendor/autoload file
 require_once('vendor/autoload.php');
 
-//Create an instane of the Base class (instantiate Fat-Free)
+// validation functions
+require_once('model/validation-functions.php');
+
+//Create an instance of the Base class (instantiate Fat-Free)
 $f3 = Base::instance();
 
 $f3->set('DEBUG', 3);
@@ -55,20 +58,39 @@ $f3->route('GET /@animal', function($f3, $params) {
 
 });
 
-$f3->route("GET|POST /order", function() {
+$f3->route("GET|POST /order", function($f3) {
+    $_SESSION = array();
+
+    if(isset($_POST['pet'])) {
+        $animal = $_POST['pet'];
+        if(validString($animal)) {
+            $_SESSION['animal'] = $animal;
+            $f3->reroute('/order2');
+        } else {
+            $f3->set("errors['animal']", "Please enter an animal.");
+        }
+    }
     $view = new Template();
     echo $view->render('views/form1.html');
 });
 
-$f3->route("GET|POST /order2", function() {
+$f3->route("GET|POST /order2", function($f3) {
 
-    $_SESSION['pet'] = $_POST['pet'];
+//    $_SESSION['pet'] = $_POST['pet'];
+    if(isset($_POST['color'])) {
+        $color = $_POST['color'];
+        if(validColor($color)) {
+            $_SESSION['color'] = $color;
+            $f3->reroute('/results');
+        } else {
+            $f3->set("errors['color']", "Please choose a color");
+        }
+    }
     $view = new Template();
     echo $view->render('views/form2.html');
 });
 
-$f3->route("POST /results", function() {
-    $_SESSION['color'] = $_POST['color'];
+$f3->route("GET|POST /results", function() {
     $view = new Template();
     echo $view->render('views/results.html');
 });

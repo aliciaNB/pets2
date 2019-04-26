@@ -5,7 +5,7 @@
  * @param String color
  * @return boolean
  */
-function vaildColor($color) {
+function validColor($color) {
     global $f3;
     return in_array($color, $f3->get('colors'));
 }
