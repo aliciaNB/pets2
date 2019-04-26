@@ -12,6 +12,10 @@ require_once('vendor/autoload.php');
 //Create an instane of the Base class (instantiate Fat-Free)
 $f3 = Base::instance();
 
+//Define Fat-Free array
+$f3->set('colors', array('pink', 'purple', 'magenta', 'lavender'));
+
+
 //Define a default route
 $f3->route('GET /', function() {
 //    $view = new Template();
